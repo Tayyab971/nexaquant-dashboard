@@ -1,0 +1,85 @@
+.nexa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+  padding: 0 1.5rem;
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  .left-section {
+    display: flex;
+    align-items: center;
+    .link-class {
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      text-decoration: none;
+      color: #4b5563;
+      font-weight: 500;
+    }
+
+    .logo {
+      width: 32px;
+      height: 32px;
+      margin-right: 0.5rem;
+    }
+
+    .brand-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-right: 2rem;
+      color: #1f2937;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+
+      a {
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        text-decoration: none;
+        color: #4b5563;
+        font-weight: 500;
+
+        &.active {
+          color: var(--primary-color);
+        }
+
+        i {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  .right-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .icon-btn {
+      font-size: 1.2rem;
+      color: #4b5563;
+    }
+
+    .profile {
+      display: flex;
+      position: relative;
+      align-items: center;
+      gap: 0.5rem;
+
+      .username {
+        font-weight: 500;
+        color: #1f2937;
+      }
+    }
+  }
+}

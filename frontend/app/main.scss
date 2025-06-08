@@ -1,0 +1,46 @@
+.login-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+
+  .login-left,
+  .login-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .login-left {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    .branding {
+      max-width: 400px;
+      text-align: left;
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        font-size: 1rem;
+        opacity: 0.9;
+      }
+
+      img {
+        margin-top: 2rem;
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  }
+
+  .login-right {
+    background-color: #ffffff;
+    padding: 2rem;
+  }
+}
