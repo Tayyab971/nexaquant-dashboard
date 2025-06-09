@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${fontOutfit.variable}`}>
-      <body className={`${fontOutfit.className} app-container`}>
+      <body className={` app-container`}>
         <ReactQueryProvider>
           <PrimeReactProvider>
             <NexaHeaderWrapper />
