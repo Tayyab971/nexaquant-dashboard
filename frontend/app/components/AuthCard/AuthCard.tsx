@@ -23,14 +23,29 @@ export default function AuthCard() {
   const [buttonState, setButtonState] = useState<"idle" | "success" | "error">(
     "idle"
   );
+  const [formErrors, setFormErrors] = useState({
+    email: false,
+    password: false,
+  });
+  const validateForm = () => {
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const emailError = !email || !emailValid;
+    const passwordError = !password;
+
+    setFormErrors({ email: emailError, password: passwordError });
+
+    return !emailError && !passwordError;
+  };
 
   const handleSubmit = () => {
     if (mode === "login") {
+      if (!validateForm()) return;
+      if (!email || !password) return;
       loginMutation.mutate(
         { email, password },
         {
-          onSuccess: () => {
-            setButtonState("success");
+          onSuccess: (data: any) => {
+            console.log(data);
             queryClient.invalidateQueries({ queryKey: ["user"] });
             setTimeout(() => {
               setButtonState("idle");
@@ -38,16 +53,17 @@ export default function AuthCard() {
             }, 1500);
           },
           onError: (error: any) => {
-            setButtonState("error");
             setTimeout(() => setButtonState("idle"), 2000);
           },
         }
       );
     } else {
+      if (!validateForm()) return;
       registerMutation.mutate(
         { name, email, password },
         {
-          onSuccess: () => {
+          onSuccess: (data: any) => {
+            console.log(data);
             setName("");
             setEmail("");
             setPassword("");
@@ -62,12 +78,7 @@ export default function AuthCard() {
       );
     }
   };
-  console.log(
-    "logs from the query",
-    registerMutation.isPending,
-    registerMutation.isSuccess,
-    registerMutation.isError
-  );
+
   return (
     <div className="authWrapper">
       <div className="header">
@@ -98,10 +109,13 @@ export default function AuthCard() {
             onChange={(e) => setEmail(e.target.value)}
             className="input"
             autoComplete="off"
+            invalid={formErrors.email}
           />
           <label htmlFor="email">Email</label>
         </FloatLabel>
-
+        {formErrors.email && (
+          <small className="p-error">Enter a valid email</small>
+        )}
         <FloatLabel>
           <Password
             id="password"
@@ -111,9 +125,13 @@ export default function AuthCard() {
             inputClassName="input"
             toggleMask
             feedback={false}
+            invalid={formErrors.password}
           />
           <label htmlFor="password">Password</label>
         </FloatLabel>
+        {formErrors.password && (
+          <small className="p-error">Password is required</small>
+        )}
 
         {mode === "login" && (
           <div className="actions">
@@ -124,7 +142,6 @@ export default function AuthCard() {
             <a href="#">Recovery Password</a>
           </div>
         )}
-
         <Button
           onClick={handleSubmit}
           loading={registerMutation.isPending}
@@ -137,7 +154,7 @@ export default function AuthCard() {
           }
           label={
             buttonState === "success"
-              ? "User Registered Successfully"
+              ? "success"
               : buttonState === "error"
               ? "Failed"
               : mode === "login"
@@ -159,7 +176,6 @@ export default function AuthCard() {
             className="googleBtn"
           />
         )}
-
         <div className="footer">
           <span>
             {mode === "login"
