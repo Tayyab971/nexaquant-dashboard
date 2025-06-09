@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import AuthRouter from "./routes/authRoutes.js";
 import cookieParser from "cookie-parser";
+import DocumentRouter from "./routes/docRoutes.js";
 
 const app: Application = express();
 const PORT = process.env.PORT || 4000;
@@ -17,6 +18,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/api/auth", AuthRouter);
+app.use("/api/document", DocumentRouter);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
