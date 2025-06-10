@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   } catch (error) {
     console.error("Middleware failed:", error);
-    return NextResponse.next(); // fallback to prevent crash
+    return NextResponse.next();
   }
 }
 
