@@ -10,7 +10,7 @@ type LoginPayload = {
 export const useLogin = () => {
   return useMutation({
     mutationFn: async (data: LoginPayload) => {
-      const res = await fetch("http://localhost:6432/api/auth/login", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
         method: "POST",
         credentials: "include",
         headers: {

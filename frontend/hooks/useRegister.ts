@@ -1,6 +1,6 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface RegisterPayload {
   name: string;
@@ -9,9 +9,10 @@ interface RegisterPayload {
 }
 
 export const useRegister = () => {
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (payload: RegisterPayload) => {
-      const res = await fetch("http://localhost:6432/api/auth/register", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,5 +29,8 @@ export const useRegister = () => {
 
       return data;
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    }
   });
 };

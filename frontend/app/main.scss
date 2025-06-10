@@ -16,8 +16,8 @@
     padding: 2rem;
     justify-content: center;
     align-items: center;
-    display: flex;
-    .branding {
+
+    .carousel-item {
       max-width: 400px;
       text-align: left;
 
@@ -42,5 +42,15 @@
   .login-right {
     background-color: #ffffff;
     padding: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .login-left {
+      display: none;
+    }
+
+    .login-right {
+      flex: 1 100%;
+    }
   }
 }

@@ -8,7 +8,7 @@ export const useUser = () =>
     queryKey: ["user"],
 
     queryFn: async () => {
-      const res = await fetch("http://localhost:6432/api/auth/profile", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/profile`, {
         credentials: "include",
       });
 

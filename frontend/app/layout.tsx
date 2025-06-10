@@ -1,19 +1,26 @@
-import { cookies } from "next/headers";
-import { Outfit } from "next/font/google";
+
 import "primereact/resources/themes/md-light-deeppurple/theme.css";
-import { PrimeReactProvider } from "primereact/api";
 import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import ReactQueryProvider from "./components/providers/ReactQueryProvider";
+import { Outfit } from "next/font/google";
+import { PrimeReactProvider } from "primereact/api";
 import "primeicons/primeicons.css";
 import "./globals.scss";
 
-import ReactQueryProvider from "./components/providers/ReactQueryProvider";
 import NexaHeaderWrapper from "./components/common/header/NexaHeaderWrapper";
+import { Metadata } from "next";
 
 const fontOutfit = Outfit({
-  variable: "--font-sans",
+  variable: "--font-outfit",
   subsets: ["latin"],
   weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
 });
+
+export const metadata: Metadata = {
+  title: "Nexa Quanta",
+  description: "Summarize your documents with AI",
+};
 
 export default function RootLayout({
   children,
@@ -21,8 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${fontOutfit.variable}`}>
-      <body className="app-container">
+    <html lang="en">
+      <body className="app-container"  >
         <ReactQueryProvider>
           <PrimeReactProvider>
             <NexaHeaderWrapper />

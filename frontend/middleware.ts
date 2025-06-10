@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  console.log("This runs");
+
   const token = request.cookies.get("token")?.value;
 
   const isAuth = Boolean(token);

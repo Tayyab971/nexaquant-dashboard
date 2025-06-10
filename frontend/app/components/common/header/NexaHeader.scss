@@ -10,9 +10,11 @@
   top: 0;
   width: 100%;
   z-index: 1000;
+
   .left-section {
     display: flex;
     align-items: center;
+
     .link-class {
       padding: 0.5rem;
       display: flex;
@@ -65,11 +67,6 @@
     align-items: center;
     gap: 1rem;
 
-    .icon-btn {
-      font-size: 1.2rem;
-      color: #4b5563;
-    }
-
     .profile {
       display: flex;
       position: relative;
@@ -80,6 +77,30 @@
         font-weight: 500;
         color: #1f2937;
       }
+    }
+
+    .mobile-only {
+      display: none;
+    }
+  }
+
+
+  @media (max-width: 768px) {
+
+
+    .nav-links {
+
+      display: none !important
+    }
+
+
+
+    .desktop-only {
+      display: none !important;
+    }
+
+    .mobile-only {
+      display: block !important;
     }
   }
 }

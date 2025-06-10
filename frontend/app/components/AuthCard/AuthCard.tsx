@@ -23,6 +23,7 @@ export default function AuthCard() {
   const [buttonState, setButtonState] = useState<"idle" | "success" | "error">(
     "idle"
   );
+  const [serverError, setServerError] = useState(null)
   const [formErrors, setFormErrors] = useState({
     email: false,
     password: false,
@@ -38,21 +39,22 @@ export default function AuthCard() {
   };
 
   const handleSubmit = () => {
+    setServerError(null)
     if (mode === "login") {
       if (!validateForm()) return;
-      if (!email || !password) return;
       loginMutation.mutate(
         { email, password },
         {
           onSuccess: (data: any) => {
-            console.log(data);
-            queryClient.invalidateQueries({ queryKey: ["user"] });
-            setTimeout(() => {
-              setButtonState("idle");
-              router.push("/dashboard");
-            }, 1500);
+            queryClient.removeQueries({
+              queryKey: [
+                "user"
+              ]
+            })
+            router.push("/dashboard")
           },
           onError: (error: any) => {
+            setServerError(error.message)
             setTimeout(() => setButtonState("idle"), 2000);
           },
         }
@@ -69,8 +71,10 @@ export default function AuthCard() {
             setPassword("");
             setButtonState("success");
             setTimeout(() => setButtonState("idle"), 2000);
+            router.push("/dashboard")
           },
           onError: (error: any) => {
+            setServerError(error.message)
             setButtonState("error");
             setTimeout(() => setButtonState("idle"), 2000);
           },
@@ -116,6 +120,7 @@ export default function AuthCard() {
         {formErrors.email && (
           <small className="p-error">Enter a valid email</small>
         )}
+
         <FloatLabel>
           <Password
             id="password"
@@ -131,6 +136,9 @@ export default function AuthCard() {
         </FloatLabel>
         {formErrors.password && (
           <small className="p-error">Password is required</small>
+        )}
+        {serverError && (
+          <small className="p-error">{serverError}</small>
         )}
 
         {mode === "login" && (
@@ -149,25 +157,24 @@ export default function AuthCard() {
             buttonState === "success"
               ? "pi pi-check"
               : buttonState === "error"
-              ? "pi pi-times"
-              : undefined
+                ? "pi pi-times"
+                : undefined
           }
           label={
             buttonState === "success"
               ? "success"
               : buttonState === "error"
-              ? "Failed"
-              : mode === "login"
-              ? "Login"
-              : "Register"
+                ? "Failed"
+                : mode === "login"
+                  ? "Login"
+                  : "Register"
           }
-          className={`primaryBtn ${
-            buttonState === "success"
-              ? "btn-success"
-              : buttonState === "error"
+          className={`primaryBtn ${buttonState === "success"
+            ? "btn-success"
+            : buttonState === "error"
               ? "btn-error"
               : ""
-          }`}
+            }`}
         />
         {mode === "login" && (
           <Button

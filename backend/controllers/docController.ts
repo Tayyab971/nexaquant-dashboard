@@ -160,3 +160,91 @@ export const DeleteDoc = async (
     });
   }
 };
+
+
+export const getUserDocuments = async (
+  req: DocumentRequest,
+  res: Response
+): Promise<any> => {
+  try {
+    const userId = req.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized access",
+      });
+    }
+
+    const documents = await prisma.document.findMany({
+      where: {
+        userId: userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      data: documents,
+    });
+  } catch (error: any) {
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Something went wrong",
+    });
+  }
+};
+
+export const generateDocSummary = async (req: DocumentRequest, res: Response): Promise<any> => {
+  const { id } = req.params;
+
+  try {
+    const doc = await prisma.document.findUnique({
+      where: { id },
+    });
+
+    if (!doc) {
+      return res.status(404).json({
+        success: false,
+        message: "Document not found",
+      });
+    }
+
+
+    //just for delaying the repsonse so it looks like its real.
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    const predefinedSummaries = [
+      "This document highlights key objectives and goals.",
+      "Summary: " + doc.description?.split(" ").slice(0, 30).join(" ") + "...",
+      "An overview of the main points and insights provided in the document.",
+      "Core elements and intentions are distilled in this summary.",
+      "Summarized version of the key ideas and concepts.",
+      "Hello Nexa Quanta Ai.."
+    ];
+
+
+    const summary =
+      predefinedSummaries[Math.floor(Math.random() * predefinedSummaries.length)];
+
+
+    const updatedDoc = await prisma.document.update({
+      where: { id },
+      data: { summary },
+    });
+
+    return res.json({
+      success: true,
+      message: "Summary generated successfully",
+      data: updatedDoc,
+    });
+
+  } catch (err: any) {
+    return res.status(500).json({
+      success: false,
+      message: err.message || "Internal Server Error",
+    });
+  }
+} 

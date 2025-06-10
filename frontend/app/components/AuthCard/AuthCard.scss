@@ -35,12 +35,16 @@
 .input {
   width: 100%;
 }
+
 .p-password {
   width: 100%;
 }
-.p-icon {
+
+
+.p-icon-field {
   width: 100%;
 }
+
 .actions {
   display: flex;
   justify-content: space-between;
@@ -53,13 +57,14 @@
   width: 100%;
   background-color: (--primary-color);
   border: none;
+
   &.btn-success {
-    background-color: #22c55e !important; // green
+    background-color: #22c55e !important;
     border: none;
   }
 
   &.btn-error {
-    background-color: #ef4444 !important; // red
+    background-color: #ef4444 !important;
     border: none;
   }
 }

@@ -1,18 +1,19 @@
 "use client";
-import { Avatar } from "primereact/avatar";
 import { Button } from "primereact/button";
 import Image from "next/image";
 import globe from "../../../../public/globe.svg";
 import { navlinks } from "@/utils/navigation";
 import { usePathname, useRouter } from "next/navigation";
-import "./NexaHeader.scss";
 import Link from "next/link";
 import { useUser } from "@/hooks/useUser";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRef } from "react";
 import { Menu } from "primereact/menu";
+import { Avatar } from "primereact/avatar";
+import "./NexaHeader.scss";
 
 export default function NexaHeader() {
+  const { data: user } = useUser();
   const pathname = usePathname();
   const client = useQueryClient();
 
@@ -57,22 +58,35 @@ export default function NexaHeader() {
           ))}
         </nav>
       </div>
+
       <div className="right-section">
         <Menu model={menuItems} popup ref={menuRef} />
+
+
         <div
-          className="profile"
+          className="profile desktop-only"
           onClick={(e) => menuRef.current.toggle(e)}
           style={{ cursor: "pointer" }}
         >
           <Avatar
             style={{
               backgroundColor: "#9c27b0",
-              boxShadow: "inherit",
               color: "#ffffff",
             }}
             shape="circle"
             size="large"
-            label={"U"}
+            label={user?.name?.charAt(0).toUpperCase() || "N"}
+          />
+        </div>
+
+        {/* Mobile Menu Button */}
+        <div className="mobile-only">
+          <Button
+            icon="pi pi-ellipsis-v"
+            rounded
+            text
+            severity="secondary"
+            onClick={(e) => menuRef.current.toggle(e)}
           />
         </div>
       </div>

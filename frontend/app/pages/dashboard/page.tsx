@@ -1,3 +1,3 @@
 export default function NexaDashboard() {
-  return <h1>This is the dashboar page</h1>;
+  return <h1>Hello Dashboard!!</h1>;
 }
