@@ -31,7 +31,7 @@ export default function Home() {
     if (isSuccess) {
       router.push("/dashboard");
     }
-  }, [isSuccess]);
+  }, [isSuccess, router]);
   const itemTemplate = (item: any) => (
     <div className="carousel-item">
       <h2>{item.title}</h2>

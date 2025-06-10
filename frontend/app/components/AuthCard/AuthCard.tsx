@@ -45,7 +45,7 @@ export default function AuthCard() {
       loginMutation.mutate(
         { email, password },
         {
-          onSuccess: (data: any) => {
+          onSuccess: () => {
             queryClient.removeQueries({
               queryKey: [
                 "user"

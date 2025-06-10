@@ -16,7 +16,7 @@ const fontOutfit = Outfit({
   subsets: ["latin"],
   weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
 });
-
+console.log(fontOutfit)
 export const metadata: Metadata = {
   title: "Nexa Quanta",
   description: "Summarize your documents with AI",
