@@ -2,18 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
   try {
-    console.log("middlewere run")
-    // const token = request.cookies.get("token")?.value;
-    // const isAuth = Boolean(token);
-    // const isLoginPage = request.nextUrl.pathname === "/";
+    const token = request.cookies.get("token")?.value;
+    const isAuth = Boolean(token);
+    const isLoginPage = request.nextUrl.pathname === "/";
 
-    // if (isAuth && isLoginPage) {
-    //   return NextResponse.redirect(new URL("/dashboard", request.url));
-    // }
+    if (isAuth && isLoginPage) {
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
 
-    // if (!isAuth && request.nextUrl.pathname.startsWith("/dashboard")) {
-    //   return NextResponse.redirect(new URL("/", request.url));
-    // }
+    if (!isAuth && request.nextUrl.pathname.startsWith("/dashboard")) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
 
     return NextResponse.next();
   } catch (error) {
@@ -22,6 +21,6 @@ export function middleware(request: NextRequest) {
   }
 }
 
-// export const config = {
-//   matcher: ["/", "/dashboard"],
-// };
+export const config = {
+  matcher: ["/", "/dashboard"],
+};
