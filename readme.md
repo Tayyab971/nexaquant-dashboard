@@ -1,6 +1,6 @@
 # Nexa Quanta – Full Stack Application
 
-This is a full-stack application built with **Next.js** for the frontend and **Node.js + TypeScript** for the backend.
+This is a full-stack application built with **Next.js (15) + TypeScript** for the frontend and **Node.js + TypeScript** for the backend.
 
 ---
 
@@ -33,4 +33,7 @@ NODEMAILER_EMAIL=tayyab.ejaz@mqvantage.com
 NODEMAILER_EMAIL_PASSWORD="txujyskypwytmldv"
 npm install
 
+### 3. How Simmulization is working.
+The summary generation simulates AI behavior by introducing a 3-second delay and randomly selecting from a list of predefined summaries.
+One of the summaries includes the first 30 words of the document's description to mimic a context-aware result.
 
